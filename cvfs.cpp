@@ -254,6 +254,7 @@ int CreateFile(char *name, int permission)
     }
 
     UFDTArr[i].ptrfiletable = (PFILETABLE)malloc(sizeof(FILETABLE));
+    if(UFDTArr[i].ptrfiletable == NULL) return -4;
     
     UFDTArr[i].ptrfiletable->count = 1;
     UFDTArr[i].ptrfiletable->mode = permission;
@@ -493,7 +494,7 @@ void ls_file()
     }
 
     printf("\nFile Name\tInode numder\tFile size\tLink count\n");
-    printf("-------------------------------------------------------\n");
+    printf("------------------------------------------------------------\n");
     while(temp != NULL)
     {
         if(temp->FileType != 0)
@@ -502,7 +503,7 @@ void ls_file()
         }
         temp =temp->next;
     }
-    printf("-------------------------------------------------------\n");
+    printf("------------------------------------------------------------\n");
 }
 
 int fstat_file(int fd)
@@ -516,7 +517,7 @@ int fstat_file(int fd)
 
     temp = UFDTArr[fd].ptrfiletable->ptrinode;
 
-    printf("\n---------Statistical information about file----------\n");
+    printf("\n------------Statistical information about file-------------\n");
     printf("File name : %s\n",temp->FileName);
     printf("Inode Number : %d\n",temp->InodeNumber);
     printf("File size : %d\n",temp->FileSize);
@@ -530,7 +531,7 @@ int fstat_file(int fd)
         printf("File Permission : Write\n");
     else if(temp->permission == 3)
         printf("File permission : Read & Write\n");
-    printf("-----------------------------------------------------\n\n");
+    printf("-----------------------------------------------------------\n\n");
 
     return 0;
 }
@@ -551,7 +552,7 @@ int stat_file(char* name)
 
     if(temp == NULL)    return -2;
 
-    printf("\n---------Statistical information about file----------\n");
+    printf("\n------------Statistical information about file-------------\n");
     printf("File name : %s\n",temp->FileName);
     printf("Inode Number : %d\n",temp->InodeNumber);
     printf("File size : %d\n",temp->FileSize);
@@ -565,7 +566,7 @@ int stat_file(char* name)
         printf("File Permission : Write\n");
     else if(temp->permission == 3)
         printf("File permission : Read & Write\n");
-    printf("-----------------------------------------------------\n\n");
+    printf("-----------------------------------------------------------\n\n");
 
     return 0;
 }
@@ -600,7 +601,7 @@ int main()
 
         fgets(str,80,stdin);//  scanf("%[^'\n']s",str);
 
-        count = sscanf(str,"%s %s %s %S",command[0],command[1],command[2],command[3]);
+        count = sscanf(str,"%s %s %s %s",command[0],command[1],command[2],command[3]);
 
         if(count == 1)
         {
@@ -731,7 +732,7 @@ int main()
             {
                 ret = OpenFile(command[1],atoi(command[2]));
                 if(ret >= 0)
-                    printf("File is successful opened wit file descriptor : %d\n",ret);
+                    printf("File is successful opened with file descriptor : %d\n",ret);
                 if(ret == -1)
                     printf("ERROR : Incorrect parameters\n");
                 if(ret == -2)
@@ -807,4 +808,3 @@ int main()
     }
     return 0;
 }
-
