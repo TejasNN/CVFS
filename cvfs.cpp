@@ -597,7 +597,7 @@ int main()
         fflush(stdin);
         strcpy(str,"");
 
-        printf("\nMarvellous VFS : > ");
+        printf("\nCustomized VFS : > ");
 
         fgets(str,80,stdin);//  scanf("%[^'\n']s",str);
 
@@ -627,7 +627,7 @@ int main()
             }
             else if(strcmp(command[0],"exit") == 0)
             {
-                printf("Terminating the Marvellous Virtual File System\n");
+                printf("Terminating the Customized Virtual File System\n");
                 break;
             }
             else
